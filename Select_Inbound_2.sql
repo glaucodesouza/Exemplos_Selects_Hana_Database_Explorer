@@ -5,7 +5,14 @@ and (assettypecode like '%300' or assettypecode like '%400' or assettypecode lik
 group by left(cpudt,10), po, POITEM, tpmov, NM, GM, matdoc, matdocitem,fatdoc, fatdocitem, docnum, docitem, PS_PSP_PNR, kostlekkn, kostlmseg, aufnr, nplnr, occode, ocdescr, assettypecode, origem_dados
 order by left(cpudt,10), po, POITEM, tpmov, NM, GM, matdoc, matdocitem,fatdoc, fatdocitem, docnum, docitem, PS_PSP_PNR, kostlekkn, kostlmseg, aufnr, nplnr, occode, ocdescr, assettypecode, origem_dados
 
-  --Selecionar pelo menos 1 quantidade preenchida
+--Selecionar contando por dia
+SELECT left(cpudt,10), count(*)
+FROM "ASSET_TRACKING"."Y_ASSET_TRACKING_ASSET_VERSION_INBOUND"
+where left(cpudt,10) between '2022-11-01' and '2022-11-30' 
+group by left(cpudt,10)
+order by left(cpudt,10)
+  
+--Selecionar pelo menos 1 quantidade preenchida
 SELECT left(cpudt,10), po, POITEM, tpmov, NM, GM, matdoc, matdocitem, quantityunit, quantitypo, quantitymov, erfmg, nfquantity, fatdoc, fatdocitem, docnum, docitem, origem_dados
 FROM "ASSET_TRACKING"."Y_ASSET_TRACKING_ASSET_VERSION_INBOUND"
 where left(cpudt,10) between '2022-11-01' and '2022-11-30' 
@@ -14,7 +21,7 @@ and
 group by left(cpudt,10), po, POITEM, tpmov, NM, GM, matdoc, matdocitem, quantityunit, quantitypo, quantitymov, erfmg, nfquantity, fatdoc, fatdocitem, docnum, docitem, origem_dados
 order by left(cpudt,10), matdoc, matdocitem, quantityunit, quantitypo, quantitymov, erfmg, nfquantity, fatdoc, fatdocitem, docnum, docitem, origem_dados
 
-  --Selecionar com todas quantidades vazias
+--Selecionar com todas quantidades vazias
 SELECT left(cpudt,10), po, POITEM, tpmov, NM, GM, matdoc, matdocitem, quantityunit, quantitypo, quantitymov, erfmg, nfquantity, fatdoc, fatdocitem, docnum, docitem, origem_dados
 FROM "ASSET_TRACKING"."Y_ASSET_TRACKING_ASSET_VERSION_INBOUND"
 where left(cpudt,10) between '2022-11-01' and '2022-11-30' 
@@ -22,3 +29,4 @@ and
 ( quantityunit is null and quantitypo = 0 and quantitymov = 0 and erfmg = 0 and nfquantity = 0 )
 group by left(cpudt,10), po, POITEM, tpmov, NM, GM, matdoc, matdocitem, quantityunit, quantitypo, quantitymov, erfmg, nfquantity, fatdoc, fatdocitem, docnum, docitem, origem_dados
 order by left(cpudt,10), matdoc, matdocitem, quantityunit, quantitypo, quantitymov, erfmg, nfquantity, fatdoc, fatdocitem, docnum, docitem, origem_dados
+
