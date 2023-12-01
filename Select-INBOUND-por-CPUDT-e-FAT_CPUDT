@@ -1,0 +1,8 @@
+--CPUDT
+select left(cpudt,10),status, count(*) from "ASSET_TRACKING"."Y_ASSET_TRACKING_ASSET_VERSION_INBOUND" 
+group by left(cpudt,10),status 
+order by left(cpudt,10) desc;
+--FATCPUDT
+select left(fatcpudt,10),status, count(*) from "ASSET_TRACKING"."Y_ASSET_TRACKING_ASSET_VERSION_INBOUND" 
+group by left(fatcpudt,10),status 
+order by left(fatcpudt,10) desc;
